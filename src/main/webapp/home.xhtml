@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+<ui:composition template="WEB-INF/template/template.xhtml">
+  <!--  <ui:define name="title">#{msg['HOME_PAGE']}</ui:define>
+    <ui:define name="pageName">#{msg['HOME_PAGE']}</ui:define>-->
+    <ui:define name="body">
+
+        <ice:outputText value="#{homePage.customHomePage}"/>
+
+    </ui:define>
+</ui:composition>
+</body>
+</html>

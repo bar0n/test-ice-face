@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.intersog.isg2tech.ipsco_tms"/>
+
+    <bean id="versionInfo" class="com.intersog.isg2tech.ipsco_tms.web.bean.VersionInfo" scope="singleton">
+        <property name="versionName" value="20161022"/>
+        <property name="cssVersion" value="1"/>
+    </bean>
+    <!--<context:mbean-export />-->
+  <!--  <bean id="customFieldsColumnProvider"  class="com.intersog.isg2tech.ipsco_tms.web.bean.paging.customColumns.CustomFieldsColumnProvider" lazy-init="true" scope="view" autowire="byName"/>
+    <bean id="customFieldsColumnProvider1" class="com.intersog.isg2tech.ipsco_tms.web.bean.paging.customColumns.CustomFieldsColumnProvider" lazy-init="true" scope="view" autowire="byName"/>
+    <bean id="customFieldsColumnProvider2" class="com.intersog.isg2tech.ipsco_tms.web.bean.paging.customColumns.CustomFieldsColumnProvider" lazy-init="true" scope="view" autowire="byName"/>
+    <bean id="customFieldsColumnProvider3" class="com.intersog.isg2tech.ipsco_tms.web.bean.paging.customColumns.CustomFieldsColumnProvider" lazy-init="true" scope="view" autowire="byName"/>
+
+    <bean id ="dropDown" class="com.intersog.isg2tech.ipsco_tms.web.bean.dropDown.DockPlantLocationDropDown"  lazy-init="true" scope="view" autowire="byName"/>
+    <bean id ="dockPlantInboundLocationDropDown" class="com.intersog.isg2tech.ipsco_tms.web.bean.dropDown.DockPlantLocationDropDown"  lazy-init="true" scope="view" autowire="byName"/>
+    <bean id="dockReceiptsTableSap" class="com.intersog.isg2tech.ipsco_tms.web.bean.portApplication.editDeliveryOrder.DockReceiptsTableSap" lazy-init="true" scope="view" autowire="byName"/>
+
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+        <property name="assembler" ref="assembler"/>
+        <property name="namingStrategy" ref="namingStrategy"/>
+        <property name="autodetect" value="true"/>
+    </bean>
+
+    <bean id="jmxAttributeSource"
+          class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+
+    &lt;!&ndash; will create management interface using annotation metadata &ndash;&gt;
+    <bean id="assembler"
+          class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+        <property name="attributeSource" ref="jmxAttributeSource"/>
+    </bean>
+
+    &lt;!&ndash; will pick up the ObjectName from the annotation &ndash;&gt;
+    <bean id="namingStrategy"
+          class="com.intersog.isg2tech.ipsco_tms.logic.jmx.MetadataNamingStrategyAppId">
+        <property name="attributeSource" ref="jmxAttributeSource"/>
+    </bean>
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:versionInfo.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <bean id="versionInfo" class="com.intersog.isg2tech.ipsco_tms.web.bean.VersionInfo" scope="singleton">
+        <property name="versionName" value="${versionInfoProp.versionName}"/>
+        <property name="cssVersion" value="${versionInfoProp.cssVersion}"/>
+    </bean>
+
+
+    <bean id="timeZoneProperties" class="com.intersog.isg2tech.ipsco_tms.web.utils.TimeZoneProperties"/>
+
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="short">
+                    <bean class="com.intersog.isg2tech.ipsco_tms.web.utils.ShortScope"/>
+                </entry>
+                <entry key="view">
+                    <bean class="org.springframework.web.context.request.RequestScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="renderManager" class="com.icesoft.faces.async.render.RenderManager" scope="singleton"/>
+
+    <bean id="uploadLoads" class="com.intersog.isg2tech.ipsco_tms.web.bean.${loadsUploadBeanName}" scope="view">
+    </bean>
+
+    &lt;!&ndash; A cached connection to wrap the ActiveMQ connection &ndash;&gt;
+    <bean id="cachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="amqConnectionFactory"/>
+    </bean>
+    &lt;!&ndash; A JmsTemplate instance that uses the cached connection and destination &ndash;&gt;
+    <bean id="jmsTemplateReportRequest" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="cachedConnectionFactory"/>
+        <property name="defaultDestination" ref="destinationReportRequest"/>
+        <property name="explicitQosEnabled" value="true"/>
+        <property name="deliveryPersistent" value="false"/>
+        <property name="timeToLive" value="30000"/>
+        <property name="receiveTimeout" value="10000"/>
+    </bean>
+
+    <bean id="reportRequester" class="com.intersog.isg2tech.ipsco_tms.logic.messaging.ReportRequesterImpl"
+          scope="singleton">
+        <property name="jmsTemplateReportRequest" ref="jmsTemplateReportRequest"/>
+        <property name="destinationReportAck" ref="destinationReportAck"/>
+    </bean>
+
+    &lt;!&ndash; Offer Notification Listener &ndash;&gt;
+    <bean id="userMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="cachedConnectionFactory"/>
+        <property name="destination" ref="userMessageTopic"/>
+        <property name="messageListener" ref="userMessageReceiver"/>
+    </bean>
+    <bean id="distanceServiceSource" class="com.intersog.isg2tech.ws.distance.${distanceServiceSource}" autowire="byName" />
+
+
+    <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="${activemq.camel.broker}" />
+            </bean>
+        </property>
+    </bean>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <template id="producerTemplate"/>
+    </camelContext>-->
+</beans>

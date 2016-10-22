@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+    <application>
+            <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <!--<variable-resolver>
+            org.springframework.web.jsf.DelegatingVariableResolver
+        </variable-resolver>-->
+        <locale-config>
+            <default-locale>en_US</default-locale>
+            <supported-locale>ru</supported-locale>
+            <supported-locale>es_ES</supported-locale>
+        </locale-config>
+
+        <view-handler>
+            com.icesoft.faces.facelets.D2DFaceletViewHandler
+        </view-handler>
+    <!--    <message-bundle>
+            com.intersog.isg2tech.ipsco_tms.utils.messages.message
+        </message-bundle>-->
+    </application>
+<!--
+    <validator>
+        <validator-id>emailValidator</validator-id>
+        <validator-class>com.intersog.isg2tech.ipsco_tms.web.validators.EmailValidator</validator-class>
+    </validator>-->
+
+  <!--  <validator>
+        <validator-id>timeValidator</validator-id>
+        <validator-class>com.intersog.isg2tech.ipsco_tms.web.validators.TimeValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>trimValidator</validator-id>
+        <validator-class>com.intersog.isg2tech.ipsco_tms.web.validators.TrimValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>cronExpressionValidator</validator-id>
+        <validator-class>com.intersog.isg2tech.ipsco_tms.web.validators.CronExpressionValidator</validator-class>
+    </validator>
+
+-->
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/home.iface</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <lifecycle>
+        <phase-listener>org.springframework.web.jsf.DelegatingPhaseListenerMulticaster</phase-listener>
+      <!--  <phase-listener>com.intersog.isg2tech.ipsco_tms.web.utils.ValidatorPhaseListener</phase-listener>
+        <phase-listener>com.intersog.isg2tech.ipsco_tms.web.utils.RestoreViewPhaseListener</phase-listener>-->
+    </lifecycle>
+<!--
+    <converter>
+        <converter-for-class>org.joda.time.DateTime</converter-for-class>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.JodaDateTimeConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>org.joda.time.LocalDate</converter-for-class>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.JodaLocalDateConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>org.joda.time.LocalTime</converter-for-class>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.JodaLocalTimeConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>org.joda.time.LocalDateTime</converter-for-class>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.JodaLocalDateTimeConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>ExpirationDateConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.ExpirationDateConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>PortConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.PortConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>DateConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.DateConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>TrimConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.TrimConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>measurementConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.MeasurementConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-for-class>java.math.BigDecimal</converter-for-class>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.MeasurementConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>nullToZeroConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.converters.NullToZeroConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>integerEmptyToZeroConverter</converter-id>
+        <converter-class>com.intersog.isg2tech.ipsco_tms.web.utils.IntegerEmptyToZeroConverter</converter-class>
+    </converter>-->
+
+</faces-config>
