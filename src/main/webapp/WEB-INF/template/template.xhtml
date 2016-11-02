@@ -4,199 +4,25 @@
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
-    <meta  content="text/html; charset=iso-8859-1"/>
-    <meta content="IE=edge"  />
-    <link type="text/css" href="./s/css/rime.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <link type="text/css" href="./s/css/main.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <link type="text/css" href="./s/css/jquery-calendar.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <link type="text/css" href="./s/css/ie6.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <link type="text/css" href="./s/css/logo.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <link type="text/css" href="./s/css/add.css?v=#{versionInfo.cssVersion}" rel="stylesheet"/>
-    <!--<ice:outputStyle href="./s/css/rime.css"/>
-    <ice:outputStyle href="./s/css/main.css"/>
-    <ice:outputStyle href="./s/css/ie6.css"/>-->
-    <link rel="shortcut icon" href="./s/img/css-images/favicon.ico" type="image/x-icon"/>
-    <script type="text/javascript" src="./s/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="./s/js/jquery.maskedinput-1.2.2.min.js"></script>
-    <script type="text/javascript" src="./s/js/popup_mech.js"></script>
-    <script type="text/javascript" src="./s/js/datetimepicker_css.js"></script>
-    <script type="text/javascript" src="./s/js/downloadPopup.js"></script>
-    <script type="text/javascript" src="./s/js/edit_role.js"></script>
-    <script type="text/javascript" src="./s/js/schedule.js"></script>
-    <script type="text/javascript" src="./s/js/jquery.blockUI.js"></script>
-    <script type="text/javascript" src="./s/js/jquery.tooltip.js"></script>
-    <script type="text/javascript" src="./s/js/main.js"></script>
-    <script type="text/javascript" src="./s/js/dock_schedule.js"></script>
-    <script type="text/javascript" src="./s/js/jquery.titlealert.js"></script>
-    <script type="text/javascript" src="./s/js/jquery.webticker.js"></script>
-    <ui:insert name="head"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <ice:outputStyle href="./s/css/rime.css"/>
     <title><ui:insert name="title"/></title>
+    <ui:insert name="head"/>
 </head>
 <ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD XHTML 1.0 Strict//EN"
                        doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
-
-<body>
-<!--<c:if test="#{authenticationController.currentDisplayingPage == 'login'}">
-
+<c:if test="#{authenticationController.currentDisplayingPage == 'login'}">
+    <ui:include src="../content/login.xhtml"/>
 </c:if>
-<f:view locale="#{settingsHolder.locale.language}">
-    <f:loadBundle var="msg" basename="com.intersog.isg2tech.ipsco_tms.utils.messages.message"/>
-
-    <div class="out">
-        <c:if test="#{authenticationController.currentDisplayingPage == 'login'}">
-            <ui:include src="../content/login.xhtml"/>
-        </c:if>
-        <c:if test="#{authenticationController.currentDisplayingPage != 'login'}">
-            <ui:insert name="header">
-                <ui:include src="../content/header.xhtml"/>
-            </ui:insert>
-
-            <div class="contentHeaderStatus">
-                <h1 class="title">
-                    <ui:insert name="pageName"/>
-                </h1>
-
-                <div class="logVersionStatus">
-                    <div class="bgRt">
-                        <ice:form id="connectionStatusForm">
-                            <ul>
-                                <li>
-                                    <ice:outputLabel value="#{msg['SERVER_TIME']}:" for="serverTime"/>
-                                    <ice:outputText value="#{timeZoneProperties.serverTime}" id="serverTime"
-                                                    style="font-weight: bold">
-                                        <f:param name="pattern" value="#{timeZoneProperties.fullFormat}"/>
-                                    </ice:outputText>
-                                </li>
-                                <li>
-                                    <ice:outputLabel value="#{msg['LOGGED_IN_AS']}:" for="loggedUser"/>
-                                    <ice:outputText value="#{loggedUserInfo.login}" id="loggedUser"
-                                                    style="font-weight: bold"/>
-                                    <ice:outputText value="("/>
-                                    <ice:outputText value="#{loggedUserInfo.usrRole.roleName}"
-                                                    id="loggedUserRole"/>
-                                    <ice:outputText value=")"/>
-                                </li>
-                                <li class="last">
-                                    <ice:panelGroup onclick="window.location.reload();"
-                                                    style="cursor:pointer; float: left; margin: 0; width:60px;"
-                                                    title="#{msg['REFRESH']}">
-                                        <ice:outputConnectionStatus id="conStatus"/>
-                                    </ice:panelGroup>
-                                </li>
-                            </ul>
-                        </ice:form>
-                    </div>
-                </div>
-            <span class="btnHelp">
-                <a href="#{helpContent.helpPageUrl}?helpId=#{helpContent.helpId}" title="#{msg['MENU_HELP']}" target="_blank"/>
-            </span>
-            </div>
-
-            <div id="pageLayout">
-                <ui:insert name="body"/>
-                <script type="text/javascript">
-                    Ice.onSessionExpired('document:body', function () {
-                        window.location.reload();
-                    });
-                    /*
-                     Ice.onConnectionTrouble('document:body', function() {
-                     alert('connection lost');
-                     });
-                     */
-                </script>
-            </div>
-            <div class="clear-all"></div>
-        </c:if>
-
-        <div class="footer">
-            <div class="footerInner">
-                <p class="versionInfo">
-                    <ice:outputLabel value="#{msg['PAGE_NOT_FOUND_VERSION']}" for="version"/>
-                    <ice:outputText value="#{versionInfo.versionName}" id="version"/>
-                </p>
-
-                <p class="copyright">Powered by #{applicationConfiguration.poweredBy}</p>
-            </div>
-        </div>
+<c:if test="#{authenticationController.currentDisplayingPage != 'login'}">
+    <ui:insert name="header">
+        <ui:include src="../content/header.xhtml"/>
+    </ui:insert>
+    <div id="pageLayout">
+        <ui:insert name="body"/>
     </div>
-</f:view>-->
-<f:view>
+</c:if>
+<body>
 
-    <div class="out">
-       <!-- <c:if test="#{authenticationController.currentDisplayingPage == 'login'}">
-            <ui:include src="../content/login.xhtml"/>
-        </c:if>-->
-
-            <ui:insert name="header">
-                <!--<ui:include src="../content/header.xhtml"/>-->
-            </ui:insert>
-
-            <div class="contentHeaderStatus">
-                <h1 class="title">
-                    <ui:insert name="pageName"/>
-                </h1>
-
-                <div class="logVersionStatus">
-                    <div class="bgRt">
-                        <ice:form id="connectionStatusForm">
-                            <ul>
-                                <li>
-                                   <!-- <ice:outputLabel value="#{msg['SERVER_TIME']}:" for="serverTime"/>
-                                    <ice:outputText value="#{timeZoneProperties.serverTime}" id="serverTime"
-                                                    style="font-weight: bold">
-                                        <f:param name="pattern" value="#{timeZoneProperties.fullFormat}"/>
-                                    </ice:outputText>-->
-                                </li>
-                                <li>
-                                   <!-- <ice:outputLabel value="#{msg['LOGGED_IN_AS']}:" for="loggedUser"/>
-                                    <ice:outputText value="#{loggedUserInfo.login}" id="loggedUser"
-                                                    style="font-weight: bold"/>
-                                    <ice:outputText value="("/>
-                                    <ice:outputText value="#{loggedUserInfo.usrRole.roleName}"
-                                                    id="loggedUserRole"/>
-                                    <ice:outputText value=")"/>-->
-                                </li>
-                                <li class="last">
-                                    <ice:panelGroup onclick="window.location.reload();"
-                                                    style="cursor:pointer; float: left; margin: 0; width:60px;"
-                                                    title="#{msg['REFRESH']}">
-                                        <ice:outputConnectionStatus id="conStatus"/>
-                                    </ice:panelGroup>
-                                </li>
-                            </ul>
-                        </ice:form>
-                    </div>
-                </div>
-                <span class="btnHelp">
-            </span>
-            </div>
-
-            <div id="pageLayout">
-                <ui:insert name="body"/>
-                <script type="text/javascript">
-                    Ice.onSessionExpired('document:body', function () {
-                        window.location.reload();
-                    });
-                    /*
-                     Ice.onConnectionTrouble('document:body', function() {
-                     alert('connection lost');
-                     });
-                     */
-                </script>
-            </div>
-            <div class="clear-all"></div>
-
-        <div class="footer">
-            <div class="footerInner">
-                <p class="versionInfo">
-                    <ice:outputLabel value="#{msg['PAGE_NOT_FOUND_VERSION']}" for="version"/>
-                    <ice:outputText value="#{versionInfo.versionName}" id="version"/>
-                </p>
-
-                <p class="copyright">Powered by  </p>
-            </div>
-        </div>
-    </div>
-</f:view>
 </body>
 </html>

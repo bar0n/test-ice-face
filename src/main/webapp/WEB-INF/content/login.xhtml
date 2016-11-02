@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title>IPSCO-TMS</title>
+</head>
+<body>
+<ui:composition>
+    <div id="login">
+        <div class="loginBgRt">
+            <div class="loginBgLt"></div>
+        </div>
+    </div>
+    <a href="#" class="logo"/>
+    <a href="#" class="logo2"/>
+
+
+    <div class="contentHeaderStatus">
+        <h1 class="title">
+            <ui:insert name="pageName"/>
+        </h1>
+
+        <div class="logVersionStatus" style="width:85px">
+            <div class="bgRt">
+                <ice:form id="connectionStatusForm">
+                    <ul>
+                        <li class="last">
+                            <ice:panelGroup onclick="window.location.reload();"
+                                            style="cursor:pointer; float: left ; margin: 0; width:60px;"
+                                            title="REFRESH">
+                                <ice:outputConnectionStatus id="conStatus"/>
+                            </ice:panelGroup>
+                        </li>
+                    </ul>
+                </ice:form>
+            </div>
+        </div>
+        <span class="btnHelp"/>
+    </div>
+    <!-- /login -->
+
+    <div id="loginPanel">
+        <form action="j_spring_security_check" id="loginForm" method="post">
+            <div class="loginFormLeft">
+                <p>
+                    <label for="j_username" class="labelName">LOGIN_PAGE_USERID:</label>
+                    <input type="text" id="j_username" name="j_username" class="inputTxt"/>
+                </p>
+
+                <p>
+                    <label for="j_password" class="labelName">LOGIN_PAGE_PASS:</label>
+                    <input type="password" id="j_password" name="j_password" class="inputTxt"/>
+                </p>
+
+                <p>
+                    <span class="remember">
+                        <input type="checkbox"
+                               id="_spring_security_remember_me" name="_spring_security_remember_me"/>
+                        <label for="_spring_security_remember_me">LOGIN_PAGE_REMEMBERME</label>
+                    </span>
+                    <a href="forgotPassword.iface" title="FORGO_PASSW" class="forgotPswd">FORGO_PASSW</a>
+                </p>
+
+            </div>
+            <p class="signIn">
+                <input type="submit" id="loginButton" value="LOGIN_PAGE_SIGN_IN" title="LOGIN_PAGE_SIGN_IN"/>
+            </p>
+        </form>
+        <ice:form styleClass="loginFrmError">
+            <p><ice:outputText value="#{authenticationController.putUrlInSession}"/></p>
+
+            <p class="txtInvalid">
+                <ice:outputText value="#{authenticationController.error}"/>
+            </p>
+        </ice:form>
+    </div>
+    <!-- /loginPanel -->
+</ui:composition>
+</body>
+</html>

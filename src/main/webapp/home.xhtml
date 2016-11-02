@@ -3,12 +3,17 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 <ui:composition template="WEB-INF/template/template.xhtml">
-  <!--  <ui:define name="title">#{msg['HOME_PAGE']}</ui:define>
-    <ui:define name="pageName">#{msg['HOME_PAGE']}</ui:define>-->
+    <ui:define name="title">Home Page</ui:define>
     <ui:define name="body">
-
-        <ice:outputText value="#{homePage.customHomePage}"/>
-
+        <ice:form>
+            <h1>Home Page</h1>
+            <br/>
+            <ice:outputLabel value="Simple Label"/>
+            <br/>
+            <ice:inputText value="Simple Text" title="Hint"/>
+            <br/>
+            <ice:inputTextarea value="Simple Text Area"/>
+        </ice:form>
     </ui:define>
 </ui:composition>
 </body>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ice:form id="headerForm">
+            <div align="center">
+                <h1>Header</h1>
+                <ice:menuBar id="mainMenuBar" orientation="horizontal" noIcons="true">
+                    <ice:menuItem id="menuHome" value="Home" action="home"/>
+                    <ice:menuItem id="menuRates" value="Rates">
+                        <ice:menuItem id="menuCarrierRatesCalculator" value="Carrier Rates Calculator"/>
+                        <ice:menuItem id="menuCarrierRatesMaintenance" value="Carrier Rates Maintenance"/>
+                        <ice:menuItem id="menuCarrierDOEFuelPricing" value="Carrier D.O.E. Fuel Pricing"/>
+                        <ice:menuItem id="menuMileageInquiry" value="Mileage Inquiry"/>
+                        <ice:menuItem id="menuServiceableRateMaintenance" value="Serviceable Rate Maintenance"/>
+                        <ice:menuItem id="menuWeeklyDOEFuelPrices" value="Weekly D.O.E. Fuel Prices"/>
+                    </ice:menuItem>
+                </ice:menuBar>
+            </div>
+            <div>
+                <ice:commandButton value="Logout" actionListener="#{authenticationController.logout}"/>
+            </div>
+        </ice:form>
+        <br/>
+    </body>
+</html>
