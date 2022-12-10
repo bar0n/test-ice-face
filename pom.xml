@@ -10,7 +10,7 @@
     <version>1.0</version>
     <!-- Shared version number properties -->
     <properties>
-        <org.springframework.version>4.3.25.RELEASE</org.springframework.version>
+        <org.springframework.version>6.0.0</org.springframework.version>
         <spring-security.version>4.2.13.RELEASE</spring-security.version>
     </properties>
 
